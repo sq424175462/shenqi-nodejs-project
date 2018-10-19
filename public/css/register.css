@@ -1,12 +1,27 @@
-       .row h1,h2{
-              border-bottom: 1px solid #666666;
+       body{
+            background: url(../images/pi.jpg) no-repeat ;
+ 
+       }
+       .row{
+           margin-top: 50px;
+        /* background: url(../images/pc.jpg) no-repeat 233px 0; */
+                       
+       }
+       .row h1{
+             /* border-bottom: 1px solid #FDFDFD; */
+             font-size: 30px;
+             margin-bottom: 15px;
+             margin-top: 15px;
+            color: #d2d5ed;
+            text-align: center;
+          }
+          form{
+               color: #d2d5ed;
           }
           .row h2{
              font-size: 24px;       
           }
-          .col-box {          
-              border: 1px solid #666666;
-          }
+        
           .btn-lg{
               width:100%;                 
           }
@@ -28,3 +43,4 @@
               color: red;
               display: none;
           }
+      

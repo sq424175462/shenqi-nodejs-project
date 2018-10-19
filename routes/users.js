@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 
 
-router.post('/register',function (req,res,next){ 
+ router.post('/register',function (req,res,next){ 
   // console.log(1);
   // res.render('myerror',{Num:1,msg:'用户名必须是3到8位'});
   var userReg=/^\w{3,8}$/;
