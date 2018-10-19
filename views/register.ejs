@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+        *{
+              padding: 0;
+              margin: 0;
+          }
+          .row h1,h2{
+              border-bottom: 1px solid #666666;
+          }
+          .row h2{
+             font-size: 24px;
+             /* text-align: center; */
+          }
+          .col-box {
+              /* margin-left: 20%; */
+              border: 1px solid #666666;
+          }
+          .btn-lg{
+              width:100%;                 
+          }
+          .control-label{
+              width:32%;
+             text-align: center;
+          }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-box">
+                <h1>XX后台注册页面</h1>
+                <h2>注册</h2>
+                <form action="/users/register" method="POST" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">用户名</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="username"  placeholder="请输入用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-5 control-label">密码</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">确认密码</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" name="repassword" placeholder="请在此输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-5 control-label">昵称</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="nickname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-5 control-label">手机号码</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">是否是管理员</label>
+                        <div class="col-sm-7">
+                            <input type="radio" name="optionsRadios"  value="1" checked>是
+                            <input type="radio" name="optionsRadios"  value="0">否
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-7">
+                            <p>
+                                <button type="submit" class="btn btn-primary btn-lg">注册</button>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
