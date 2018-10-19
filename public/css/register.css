@@ -1,0 +1,30 @@
+       .row h1,h2{
+              border-bottom: 1px solid #666666;
+          }
+          .row h2{
+             font-size: 24px;       
+          }
+          .col-box {          
+              border: 1px solid #666666;
+          }
+          .btn-lg{
+              width:100%;                 
+          }
+          .control-label{
+              width:32%;
+             text-align: center;
+          }
+         
+          .form-horizontal .form-group{
+              margin-bottom:30px;
+              position: relative;
+          }
+           .row .userinfo{
+              margin-left: 124px;
+              /* display: none; */
+              position: absolute;
+              left: 15px;
+              top: 40px;
+              color: red;
+              display: none;
+          }

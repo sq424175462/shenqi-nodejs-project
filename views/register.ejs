@@ -7,30 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-    <style>
-        *{
-              padding: 0;
-              margin: 0;
-          }
-          .row h1,h2{
-              border-bottom: 1px solid #666666;
-          }
-          .row h2{
-             font-size: 24px;
-             /* text-align: center; */
-          }
-          .col-box {
-              /* margin-left: 20%; */
-              border: 1px solid #666666;
-          }
-          .btn-lg{
-              width:100%;                 
-          }
-          .control-label{
-              width:32%;
-             text-align: center;
-          }
-    </style>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 
 <body>
@@ -43,20 +21,33 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label">用户名</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="username"  placeholder="请输入用户名">
-                        </div>
+                            <input type="text" class="form-control usernameinfo" name="username"  placeholder="请输入用户名">
+                        </div>  
+                        <div class="userinfo user_err">用户名格式错误</div>
+                        <div class="userinfo user_success">可用</div>
+                        <div class="userinfo user_info">请输入3到8位数字,字母</div>
+                          
+
                     </div>
                     <div class="form-group">
                         <label  class="col-sm-5 control-label">密码</label>
                         <div class="col-sm-7">
-                            <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                            <input type="password" class="form-control pwdinfo" name="password" placeholder="请输入密码">
                         </div>
+                        <div class="userinfo pwd_info">请输入3到8位数字,字母</div>
+                        <div class="userinfo pwd_err">密码格式错误</div>
+                        <div class="userinfo pwd_success">可用</div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-5 control-label">确认密码</label>
+                        
                         <div class="col-sm-7">
-                            <input type="password" class="form-control" name="repassword" placeholder="请在此输入密码">
+                            <input type="password" class="form-control repwdinfo" name="repassword" placeholder="请在此输入密码">
                         </div>
+                        <div class="userinfo repwd_err">密码不一致</div>
+                        <div class="userinfo repwd_pwd">再次输入密码</div>
+                        <div class="userinfo repwd_success">正确</div>
+
                     </div>
                     <div class="form-group">
                         <label  class="col-sm-5 control-label">昵称</label>
@@ -93,6 +84,8 @@
 
     <script src="/lib/jquery/jquery.min.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/register.js"></script>
+
 </body>
 
 </html>
