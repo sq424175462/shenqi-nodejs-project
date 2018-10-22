@@ -1,6 +1,9 @@
 var userReg = /^\w{3,8}$/;
 var pwdReg = /^\S{3,8}$/;
 // 用户名正则
+var useflag = false;
+$('#btn_1').attr('disabled', true);
+
 $('.usernameinfo').focus(function () {
     $('.user_info').css('display', 'block');
     $('.user_err').css('display', 'none');
@@ -8,7 +11,6 @@ $('.usernameinfo').focus(function () {
 })
 $('.usernameinfo').blur(function () {
     $('.user_info').css('display', 'none');
-    // $('.user_info').css('display','block');
     if (userReg.test($(this).val())) {
         $('.user_success').css('display', 'block');
     } else {
@@ -16,12 +18,11 @@ $('.usernameinfo').blur(function () {
     }
 })
 // 密码正则
+var pwdflag = false;
 $('.pwdinfo').focus(function () {
     $('.pwd_info').css('display', 'block');
     $('.pwd_err').css('display', 'none');
     $('.pwd_success').css('display', 'none');
-
-
 })
 $('.pwdinfo').blur(function () {
     $('.pwd_info').css('display', 'none');
@@ -33,6 +34,7 @@ $('.pwdinfo').blur(function () {
     }
 })
 //再次密码正则
+var repwdflag = false;
 $('.repwdinfo').focus(function () {
     $('.repwd_pwd').css('display', 'block');
     $('.repwd_err').css('display', 'none');
@@ -48,8 +50,28 @@ $('.repwdinfo').blur(function () {
         }
     }
 })
+
 //登录操作
-$('.btn-lg').click(function(){
-    // alert(1)
-    //跳转到登录页面
+$(document).click(function () {
+    if (userReg.test($('.usernameinfo').val())) {
+        useflag = true;
+    } else {
+        useflag = false;
+    }
+    if (pwdReg.test($('.pwdinfo').val())) {
+        pwdflag = true;
+    } else {
+        pwdflag = false;
+    }
+    if ($('.pwdinfo').val() == $('.repwdinfo').val()) {
+        repwdflag = true;
+    } else {
+        repwdflag = false;
+    }
+
+    if (useflag && pwdflag && repwdflag) {
+        $('#btn_1').attr('disabled', false)
+    } else {
+        $('#btn_1').attr('disabled', true);
+    }
 })
