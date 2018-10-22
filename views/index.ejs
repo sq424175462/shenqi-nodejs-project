@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/css/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
 
+<head>
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+  <div class="container index">
+    <%- include('./pub/header.ejs',{ nickname : nickname,isAdmin:isAdmin}) %>
+    <!-- <div></div> -->
+    <!-- <div class="header">
+          <div class="header_l">
+            <p>学生后台系统欢迎你</p>
+          </div>   
+          <div class="header_r">
+            <p>欢迎你：
+
+            </p>
+            <button><a href="/users/out">退出登录</a></button>
+          </div>
+        </div> -->
+    <!-- 头部模块 -->
+    <div class="footer">
+      <%- include('./pub/left.ejs' ) %>
+      <!-- <div></div> -->
+      <!-- 下面左侧模块 -->
+      <!-- <div class="left">
+            <ul>
+         
+              <li><a href="">用户管理</a></li>
+           
+              <li><a href="">手机管理</a></li>
+              <li><a href="">图片管理</a></li>
+            </ul>
+          </div> -->
+      <div class="main">
+        <h1>Welcome</h1>
+        <!-- <img src="/images/pc.jpg" alt=""> -->
+        <p>你将进入奇妙之旅准备好了吗？</p>
+        <p>Are you ready?</p>
+        <p>GO!!!!!</p>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

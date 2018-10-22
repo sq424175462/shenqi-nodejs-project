@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 //注册的路由
 
-router.post('/register', function (req, res, next) {
+router.post('/register', function (req, res) {
   console.log('传过来的信息');
   console.log(req.body);//请求过了 注册上面的注册数据 是个对象
   var userReg = /^\w{3,8}$/;
@@ -38,14 +38,39 @@ router.post('/register', function (req, res, next) {
       res.render('myerror', err);
     } else {
       //注册成功跳转页面；
-      res.redirect('/login');
+      res.redirect('/login.html');
     }
 
   })
 });
 //登录的路由
-
-
-
+router.post('/login', function (req, res) {
+  userModel.login(req.body, function (err, data) {
+    if (err) {
+      res.render('myerror', err);
+    } else {
+      //跳转到首页
+      console.log('当前用户登录信息是', data);
+      res.cookie('username', data.username, {
+        maxAge: 1000 * 60 * 10000000
+      })
+      res.cookie('nickname', data.nickname, {
+        maxAge: 1000 * 60 * 10000000
+      })
+      res.cookie('isAdmin', data.isAdmin, {
+        maxAge: 1000 * 60 * 10000000
+      })
+      res.redirect('/');
+    }
+  })
+})
+//退出的路由
+router.get('/out', function (req, res) {
+  //此时要清楚cookie  跳转到登陆页面
+  res.clearCookie('username');
+  res.clearCookie('nickname');
+  res.clearCookie('isAdmin');
+  res.send('<script>location.replace("/")</script>');
+})
 
 module.exports = router;
