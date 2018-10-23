@@ -95,8 +95,8 @@
                     </div>
 
                     <div>
-                        <label>性别：</label><input type="radio" class="sexx" name="sex"  value="女" >女
-                                <input type="radio" name="sex" class="sexx" value="男" >男
+                        <label>性别：</label><input type="radio" class="sexx" name="sex" value="女">女
+                        <input type="radio" name="sex" class="sexx" value="男">男
                     </div>
 
                     <!-- <div>
@@ -104,7 +104,8 @@
                         <input type="radio" name="is_admin"  value="0">否
                     </div> -->
                     <div>
-                        <input type="submit" id="btn" value="修改">
+                        <input type="submit" class="btn btn1" value="修改">
+                        <input type="submit" class="btn btn2" value="取消">
                     </div>
 
                 </form>
@@ -131,24 +132,18 @@
     $('.updata').click(function () {
         $('.updatamsg').show();
     })
-    $('#btn').click(function () {
+    $('.btn2').click(function () {
         $('.updatamsg').hide();
-    //    sex = $("input[name='sex']:checked").val();
-       
     })
-
     $('.updata').click(function () {
         username = $('#upname').val($(this).parent().parent().find('td').eq(1).html().trim());
         nickname = $('#upnickname').val($(this).parent().parent().find('td').eq(2).html().trim());
         iphone = $('#upiphone').val($(this).parent().parent().find('td').eq(3).html().trim());
         age = $('#upage').val($(this).parent().parent().find('td').eq(5).html().trim());
-        sex =$(this).parent().parent().find('td').eq(4).html().trim();
-    //  alert(niubis)
-    //       $('input[name="sex"]').prop('checked',false);
-    //       $('input[value="'+ niubis+'"]').prop('checked',true);
+        sex = $(this).parent().parent().find('td').eq(4).html().trim();
+        //  alert(sex)
+        $('input[name="sex"]').prop('checked', true);
+        $('input[value="' + sex + '"]').prop('checked', true);
         // is_admin = $("input[name='is_admin']:checked").val($(this).parent().parent().find('td').eq(6).html().trim());
     })
-   
-
-
 </script>

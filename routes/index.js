@@ -51,7 +51,7 @@ router.get('/user_manager.html',function (req,res) {
           if(err){
              res.render(myerror,err);
           }else{
-            // console.log(data)
+            console.log(data)
 
             res.render('user_manager',{
 
