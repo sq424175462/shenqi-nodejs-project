@@ -37,14 +37,13 @@ router.get('/login.html', function (req, res) {
 //用户管理页面
 
 router.get('/user_manager.html',function (req,res) {
-  console.log(req.query)
+  // console.log(req.query)
     //判断是都登陆，还要判断是都是管理员
     if(req.cookies.username && parseInt(req.cookies.isAdmin)){
       let page = req.query.page ||1;//页码
       // console.log(page)
       let pageSize = req.query.pageSize ||5;//每页的条数
       // console.log(pageSize)
-
       userModel.getUserList({
         page:page,
         pageSize:pageSize

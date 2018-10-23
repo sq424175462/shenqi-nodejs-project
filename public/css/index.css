@@ -25,7 +25,7 @@ body{
 }
 .index .header .header_r{
     display: flex;
-    width:30%;
+    width:32%;
     justify-content: space-between;
 }
 .index .header .header_r p{

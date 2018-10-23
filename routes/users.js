@@ -75,4 +75,28 @@ router.get('/out', function (req, res) {
   res.send('<script>location.replace("/")</script>');
 })
 
+//修改的路由
+  router.post('/user_manager',function (req,res) {
+    console.log(req.body);
+    console.log('======================');
+    userModel.updataList(req.body,function (err) {
+      // console.log(11111100);
+      if(err){
+        res.render('myerror',err);
+      }else{
+        res.redirect('/user_manager.html');
+      }
+    })
+  })
+  //删除的路由
+  router.get('/delete',function (req,res) {
+    userModel.deleteList(req.query._id,function (err) {
+      if(err){
+        res.render('myerror',err)
+      }else{
+        res.send('<script>location.replace("/user_manager.html")</script>');
+      }
+    })
+  })
+
 module.exports = router;

@@ -37,32 +37,32 @@
                             <td>
                                 <%= userList[i]._id %>
                             </td>
-                            <td>
+                            <td class='userName'>
                                 <%= userList[i].username %>
                             </td>
-                            <td>
+                            <td class="nickName">
                                 <%= userList[i].nickname %>
                             </td>
-                            <td>
+                            <td class="iphone">
                                 <%= userList[i].iphone %>
                             </td>
-                            <td>
+                            <td class="sex">
                                 <%= userList[i].sex || '-' %>
                             </td>
-                            <td>
+                            <td class="age">
                                 <%= userList[i].age || '-' %>
                             </td>
-                            <td>
+                            <td class="isadmin">
                                 <%= parseInt(userList[i].is_admin) ? '是' : '否' %>
                             </td>
                             <td>
                                 <% if (userList[i].username === username) { %>
-                                <a href="#">修改</a>
+                                <a class="updata">修改</a>
                                 <% } else if (parseInt(userList[i].is_admin)) { %>
 
                                 <% } else { %>
-                                <a href="#">修改</a>
-                                <a href="#">删除</a>
+                                <a class="updata">修改</a>
+                                <a href="/users/delete?_id=<%= userList[i]._id %>" class="delete">删除</a>
                                 <% } %>
 
                             </td>
@@ -71,6 +71,43 @@
 
                     </tbody>
                 </table>
+                <ul id="uli">
+                    <% for(var i=0;i<totalPage;i++){%>
+                    <li>
+                        <a href="/user_manager.html?page=<%= i+1 %>">
+                            <%= i + 1%>页</a>
+                    </li>
+                    <% }%>
+                </ul>
+                <form action="users/user_manager" method="post" class="updatamsg">
+                    <div>
+                        <label>用户名：</label>
+                        <input type="text" name="username" id="upname" readonly>
+                    </div>
+                    <div>
+                        <label>昵称: </label><input type="text" name="nickname" id="upnickname">
+                    </div>
+                    <div>
+                        <label>iphone:</label><input type="text" name="iphone" id='upiphone'>
+                    </div>
+                    <div>
+                        <label>年龄：</label><input type="text" name="age" id="upage">
+                    </div>
+
+                    <div>
+                        <label>性别：</label><input type="radio" class="sexx" name="sex"  value="女" >女
+                                <input type="radio" name="sex" class="sexx" value="男" >男
+                    </div>
+
+                    <!-- <div>
+                        <label>管理员：</label><input type="radio" name="is_admin" value="1">是
+                        <input type="radio" name="is_admin"  value="0">否
+                    </div> -->
+                    <div>
+                        <input type="submit" id="btn" value="修改">
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
@@ -79,3 +116,39 @@
 </body>
 
 </html>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script>
+    var username;
+    var nickname;
+    var iphone;
+    var age;
+    var sexxx;
+    var is_admin;
+    $('#uli').find('li:first-child').addClass('active');
+    $('#uli li').click(function () {
+        $(this).addClass('active').siblings().removeClass('active');
+    })
+    $('.updata').click(function () {
+        $('.updatamsg').show();
+    })
+    $('#btn').click(function () {
+        $('.updatamsg').hide();
+    //    sex = $("input[name='sex']:checked").val();
+       
+    })
+
+    $('.updata').click(function () {
+        username = $('#upname').val($(this).parent().parent().find('td').eq(1).html().trim());
+        nickname = $('#upnickname').val($(this).parent().parent().find('td').eq(2).html().trim());
+        iphone = $('#upiphone').val($(this).parent().parent().find('td').eq(3).html().trim());
+        age = $('#upage').val($(this).parent().parent().find('td').eq(5).html().trim());
+        sex =$(this).parent().parent().find('td').eq(4).html().trim();
+    //  alert(niubis)
+    //       $('input[name="sex"]').prop('checked',false);
+    //       $('input[value="'+ niubis+'"]').prop('checked',true);
+        // is_admin = $("input[name='is_admin']:checked").val($(this).parent().parent().find('td').eq(6).html().trim());
+    })
+   
+
+
+</script>

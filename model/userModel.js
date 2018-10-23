@@ -32,7 +32,7 @@ const userModel = {
                 nickname: data.nickname,
                 iphone: data.phone,
                 is_admin: data.isAdmin,
-                _id: 0
+
             }
             //选择集合并操作
             async.series([
@@ -146,7 +146,7 @@ const userModel = {
                             if (err) {
                                 callback({ code: 101, msg: '查询数据库失败' });
                             } else {
-                                callback(null,num);
+                                callback(null, num);
                             }
                         })
                     },
@@ -177,7 +177,94 @@ const userModel = {
             }
 
         })
+    },
+    //修改操作
+
+    /**
+    * 
+    * 
+    *  @para{data}修改信息  对象
+    * @para{cb} 回调函数   cb
+    * ***
+    * 
+    * 
+    * */
+    updataList: function (udata, cb) {
+        // console.log(udata);
+        MongoClient.connect(url, function (err, client) {
+            if (err) {
+                console.log('连接数据库失败');
+                cb({ code: 101, msg: '连接数据库失败' });
+            } else {
+                var db = client.db('shenqi');
+                let upData = {
+                    username: udata.username,
+                    nickname: udata.nickname,
+                    iphone: udata.iphone,
+                    sex: udata.sex,
+                    age: udata.age,
+                }
+                // 、串行无关联
+                async.waterfall([
+                    function (callback) {
+                        db.collection('user').updateOne({ 'username': upData.username }, {
+                            '$set': {
+                                'nickname': upData.nickname,
+                                'iphone': upData.iphone,
+                                'sex': upData.sex,
+                                'age': upData.age,
+
+                            }
+                        }, function (err) {
+                            if (err) {
+                                console.log('修改失败');
+                                callback({ code: 102, msg: err })
+                            } else {
+                                // console.log('hhhhhhhh, 到这里了没有');
+                                callback(null);
+                            }
+                        })
+                    }
+
+                ], function (err, results) {
+                    // console.log(results)
+                    if (err) {
+                        console.log('上面两步可能出了问题');
+                        cb(err);
+                    } else {
+                        cb(null);
+                    }
+                    client.close();
+                })
+
+            }
+        })
+    },
+    deleteList: function (data, cb) {
+        // console.log(data)
+        MongoClient.connect(url, function (err, client) {
+            if (err) {
+                cb({ code: 101, msg: '连接数据库失败' })
+                return;
+            }
+            var db = client.db('shenqi');
+            db.collection('user').remove({ _id: parseInt(data) }, function (err) {
+                if (err) {
+                    cb({ code: 101, msg: '删除失败' });
+                    client.close();
+                } else {
+                    console.log(1111111)
+                    console.log('删除成功');
+                    cb(null);
+                }
+                client.close();
+
+            })
+
+
+        })
     }
+
 }
 module.exports = userModel;
 
