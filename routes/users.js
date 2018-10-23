@@ -45,6 +45,8 @@ router.post('/register', function (req, res) {
 });
 //登录的路由
 router.post('/login', function (req, res) {
+  console.log(req.query)
+  console.log(1)
   userModel.login(req.body, function (err, data) {
     if (err) {
       res.render('myerror', err);
@@ -66,7 +68,7 @@ router.post('/login', function (req, res) {
 })
 //退出的路由
 router.get('/out', function (req, res) {
-  //此时要清楚cookie  跳转到登陆页面
+  //此时要清除cookie  跳转到登陆页面
   res.clearCookie('username');
   res.clearCookie('nickname');
   res.clearCookie('isAdmin');

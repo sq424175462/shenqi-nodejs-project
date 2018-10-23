@@ -31,7 +31,8 @@ const userModel = {
                 password: data.password,
                 nickname: data.nickname,
                 iphone: data.phone,
-                is_admin: data.isAdmin
+                is_admin: data.isAdmin,
+                _id: 0
             }
             //选择集合并操作
             async.series([
@@ -51,11 +52,13 @@ const userModel = {
                 },
                 function (callback) {
                     //查询注册了多少条
-                    db.collection('user').find().count(function (err, num) {
+                    db.collection('user').find().toArray(function (err, arr) {
+                        // console.log(arr[arr.length - 1]._id);
                         if (err) {
-                            callback({ code:101,msg: '查询注册总条数失败' });
+                            callback({ code: 101, msg: '查询注册总条数失败' });
                         } else {
-                            saveData._id = num + 1;
+                            saveData._id = arr[arr.length - 1]._id + 1;//?????怎么自增需要解决
+
                             callback(null);
                         }
 
@@ -65,7 +68,7 @@ const userModel = {
                     //写入数据库
                     db.collection('user').insertOne(saveData, function (err) {
                         if (err) {
-                            callback({code: 101,msg :'写入数据库失败' });
+                            callback({ code: 101, msg: '写入数据库失败' });
                         } else {
                             callback(null);
                             console.log('写入成功');
@@ -84,41 +87,89 @@ const userModel = {
 
     },
     /**
-     * *
-     * *
-     * *@para{data}登录信息  对象{username:''
+     * 
+     * 
+     *  @para{data}登录信息  对象{username:''
      *                               password:''}
-     * *@para{cb} 回调函数   cb
+     * @para{cb} 回调函数   cb
      * ***
      * 
      * 
      * */
-    login:function (data,cb) {
-        MongoClient.connect(url,function (err,client) {
-            if(err){
+    login: function (data, cb) {
+        MongoClient.connect(url, function (err, client) {
+            if (err) {
                 console.log('连接数据库失败');
-                cb({code:101,msg:'连接数据库失败'})
-            }else{
+                cb({ code: 101, msg: '连接数据库失败' })
+            } else {
                 const db = client.db('shenqi');
                 db.collection('user').find({
-                    username:data.username,
-                    password:data.password
-                }).toArray(function (err,data) {
-                    if(err){
-                        console.log('查询数据库失败',err);
-                        cb({code:101,msg:err});
+                    username: data.username,
+                    password: data.password
+                }).toArray(function (err, data) {
+                    if (err) {
+                        console.log('查询数据库失败', err);
+                        cb({ code: 101, msg: err });
                         client.close();
-                    }else if(data.length<=0){
+                    } else if (data.length <= 0) {
                         //没有找到相应的用户名就不能登录
                         console.log('用户不能登录,账号密码错误');
-                        cb({code:102,msg:'用户名或者密码不对'});
+                        cb({ code: 102, msg: '用户名或者密码不对' });
 
-                    }else{
+                    } else {
                         console.log('可以登录');
-                        cb(null,{
-                            username:data[0].username,
-                            nickname:data[0].nickname,
-                            isAdmin:data[0].is_admin
+                        cb(null, {
+                            username: data[0].username,
+                            nickname: data[0].nickname,
+                            isAdmin: data[0].is_admin
+                        })
+                    }
+                    client.close();
+                })
+            }
+
+        })
+    },
+    getUserList: function (data, cb) {
+        MongoClient.connect(url, function (err, client) {
+            if (err) {
+                console.log('连接数据库失败');
+                cb({ code: 100, msg: '连接数据库失败' });
+            } else {
+                var db = client.db('shenqi');
+                var limitNum = parseInt(data.pageSize);
+                var skipNum = data.page * data.pageSize - data.pageSize;
+                async.parallel([
+                    //查询所有数据库
+                    function (callback) {
+                        db.collection('user').find().count(function (err, num) {
+                            if (err) {
+                                callback({ code: 101, msg: '查询数据库失败' });
+                            } else {
+                                callback(null,num);
+                            }
+                        })
+                    },
+                    function (callback) {
+                        //查询分页的数据
+                        db.collection('user').find().limit(limitNum).skip(skipNum).toArray(function (err, data) {
+                            if (err) {
+                                callback({ code: 101, msg: '查询数据库失败' });
+
+                            } else {
+                                callback(null, data)
+                            }
+                        })
+                    }
+                ], function (err, results) {
+
+                    if (err) {
+                        cb(err);
+                    } else {
+                        cb(null, {
+                            totalPage: Math.ceil(results[0] / data.pageSize),
+                            userList: results[1],
+                            page: data.page
                         })
                     }
                     client.close();
@@ -127,10 +178,6 @@ const userModel = {
 
         })
     }
-
-
-
-
 }
 module.exports = userModel;
 
