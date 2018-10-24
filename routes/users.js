@@ -84,14 +84,14 @@ router.post('/user_manager', function (req, res) {
     if (err) {
       res.render('myerror', err);
     } else {
-        res.redirect('/user_manager.html')
+        res.redirect('/user_manager.html?')
 
     }
   })
 })
 //删除的路由
 router.get('/delete', function (req, res) {
-  userModel.deleteList(req.query._id, function (err) {
+  userModel.deleteList(parseInt(req.query._id), function (err) {
     if (err) {
       res.render('myerror', err)
     } else {

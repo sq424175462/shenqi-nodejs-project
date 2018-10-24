@@ -57,7 +57,7 @@ const userModel = {
                         if (err) {
                             callback({ code: 101, msg: '查询注册总条数失败' });
                         } else {
-                            saveData._id = arr[arr.length - 1]._id + 1;//?????怎么自增需要解决
+                            saveData._id = arr.length  ?  arr[arr.length - 1]._id + 1   :  1;//?????怎么自增需要解决
 
                             callback(null);
                         }
@@ -280,7 +280,7 @@ const userModel = {
                 return;
             }
             var db = client.db('shenqi');
-            db.collection('user').remove({ _id: parseInt }, function (err) {
+            db.collection('user').remove({ _id: data }, function (err) {
                 if (err) {
                     cb({ code: 101, msg: '删除失败' });
                     client.close();

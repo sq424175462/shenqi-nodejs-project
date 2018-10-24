@@ -143,7 +143,7 @@
         age = $('#upage').val($(this).parent().parent().find('td').eq(5).html().trim());
         sex = $(this).parent().parent().find('td').eq(4).html().trim();
         //  alert(sex)
-        $('input[name="sex"]').prop('checked', true);
+        $('input[name="sex"]').prop('checked', false);
         $('input[value="' + sex + '"]').prop('checked', true);
         // is_admin = $("input[name='is_admin']:checked").val($(this).parent().parent().find('td').eq(6).html().trim());
     })
