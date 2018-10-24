@@ -45,8 +45,8 @@ router.post('/register', function (req, res) {
 });
 //登录的路由
 router.post('/login', function (req, res) {
-  console.log(req.query)
-  console.log(1)
+  // console.log(req.body)
+  console.log(11111111111);
   userModel.login(req.body, function (err, data) {
     if (err) {
       res.render('myerror', err);
@@ -76,27 +76,28 @@ router.get('/out', function (req, res) {
 })
 
 //修改的路由
-  router.post('/user_manager',function (req,res) {
-    console.log(req.body);
-    console.log('======================');
-    userModel.updataList(req.body,function (err) {
-      // console.log(11111100);
-      if(err){
-        res.render('myerror',err);
-      }else{
-        res.redirect('/user_manager.html');
-      }
-    })
+router.post('/user_manager', function (req, res) {
+
+  console.log('======================');
+  userModel.updataList(req.body, function (err) {
+ 
+    if (err) {
+      res.render('myerror', err);
+    } else {
+        res.redirect('/user_manager.html')
+
+    }
   })
-  //删除的路由
-  router.get('/delete',function (req,res) {
-    userModel.deleteList(req.query._id,function (err) {
-      if(err){
-        res.render('myerror',err)
-      }else{
-        res.send('<script>location.replace("/user_manager.html")</script>');
-      }
-    })
+})
+//删除的路由
+router.get('/delete', function (req, res) {
+  userModel.deleteList(req.query._id, function (err) {
+    if (err) {
+      res.render('myerror', err)
+    } else {
+      res.send('<script>location.replace("/user_manager.html")</script>');
+    }
   })
+})
 
 module.exports = router;

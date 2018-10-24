@@ -27,6 +27,7 @@
 
 table tbody tr a:last-child{
     margin-left: 20px;
+    color: red;
 }
 .footer .left ul li:first-child a{
     color: red;
@@ -49,9 +50,9 @@ table tbody tr a:last-child{
     background: red;
     color: white;
 } */
-.active{
+/* .active{
     background: red;
-}
+} */
 .updatamsg{
     width: 300px;
     border: 1px solid #999999;

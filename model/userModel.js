@@ -131,6 +131,10 @@ const userModel = {
         })
     },
     getUserList: function (data, cb) {
+
+        // console.log(1111111111111112222)
+        // console.log(data);
+
         MongoClient.connect(url, function (err, client) {
             if (err) {
                 console.log('连接数据库失败');
@@ -142,38 +146,66 @@ const userModel = {
                 async.parallel([
                     //查询所有数据库
                     function (callback) {
-                        db.collection('user').find().count(function (err, num) {
-                            if (err) {
-                                callback({ code: 101, msg: '查询数据库失败' });
-                            } else {
-                                callback(null, num);
-                            }
-                        })
+                        // console.log(data.snickname)
+                        console.log(22222)
+                        if (data.snickname) {
+                            var nick = new RegExp(data.snickname);
+                            db.collection('user').find({ nickname: nick }).count(function (err, num) {
+                                if (err) {
+                                    callback({ code: 101, msg: '查询数据库失败' });
+                                } else {
+                                    callback(null, num);
+                                }
+                            })
+                        } else {
+                            db.collection('user').find().count(function (err, num) {
+                                if (err) {
+                                    callback({ code: 101, msg: '查询数据库失败' });
+                                } else {
+                                    callback(null, num);
+                                }
+                            })
+                        }
+
                     },
                     function (callback) {
                         //查询分页的数据
-                        db.collection('user').find().limit(limitNum).skip(skipNum).toArray(function (err, data) {
-                            if (err) {
-                                callback({ code: 101, msg: '查询数据库失败' });
+                        if (data.snickname) {
+                            var nick = new RegExp(data.snickname);
+                            db.collection("user").find({ nickname: nick }).toArray(function (err, data) {
+                                if (err) {
+                                    callback({ code: 101, msg: '查询失败' });
+                                } else {
+                                    callback(null, data);
+                                    // console.log(data)
+                                }
+                            })
+                        } else {
+                            db.collection('user').find().limit(limitNum).skip(skipNum).toArray(function (err, data) {
+                                if (err) {
+                                    callback({ code: 101, msg: '查询数据库失败' });
 
-                            } else {
-                                callback(null, data)
-                            }
-                        })
-                    }
-                ], function (err, results) {
+                                } else {
+                                    callback(null, data)
+                                }
+                            })
+                        }
 
-                    if (err) {
-                        cb(err);
-                    } else {
-                        cb(null, {
-                            totalPage: Math.ceil(results[0] / data.pageSize),
-                            userList: results[1],
-                            page: data.page
-                        })
                     }
-                    client.close();
-                })
+                ],
+                    function (err, results) {
+
+                        if (err) {
+                            cb(err);
+                        } else {
+                            cb(null, {
+                                totalPage: Math.ceil(results[0] / data.pageSize),
+                                userList: results[1],
+                                page: data.page
+                            })
+                        }
+                        client.close();
+                    })
             }
 
         })
@@ -248,7 +280,7 @@ const userModel = {
                 return;
             }
             var db = client.db('shenqi');
-            db.collection('user').remove({ _id: parseInt(data) }, function (err) {
+            db.collection('user').remove({ _id: parseInt }, function (err) {
                 if (err) {
                     cb({ code: 101, msg: '删除失败' });
                     client.close();

@@ -13,9 +13,9 @@
         <div class="footer">
             <%- include('./pub/left.ejs') %>
             <div class="main">
-                <form action="">
-                    <input type="text" class="search">
-                    <input type="submit" id="btn" value="搜索">
+                <form action="/user_manager.html" method="get">
+                    <input type="text" class="search" name="snickname">
+                    <input type="submit" class="btn3" value="搜索">
                 </form>
                 <table border="1">
                     <thead>
@@ -31,6 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                       
 
                         <% for (var i = 0; i< userList.length; i++){   %>
                         <tr>
@@ -57,18 +58,18 @@
                             </td>
                             <td>
                                 <% if (userList[i].username === username) { %>
-                                <a class="updata">修改</a>
+                                <a href="#" class="updata">修改</a>
                                 <% } else if (parseInt(userList[i].is_admin)) { %>
 
                                 <% } else { %>
-                                <a class="updata">修改</a>
+                                <a href="#" class="updata">修改</a>
                                 <a href="/users/delete?_id=<%= userList[i]._id %>" class="delete">删除</a>
                                 <% } %>
 
                             </td>
                         </tr>
                         <% } %>
-
+                  
                     </tbody>
                 </table>
                 <ul id="uli">
@@ -146,4 +147,15 @@
         $('input[value="' + sex + '"]').prop('checked', true);
         // is_admin = $("input[name='is_admin']:checked").val($(this).parent().parent().find('td').eq(6).html().trim());
     })
+
+
+$('.btn3').click(function () {
+      $('.search').val()
+    
+ })
+
+
+
+
+
 </script>
