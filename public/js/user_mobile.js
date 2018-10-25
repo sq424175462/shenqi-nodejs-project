@@ -34,7 +34,7 @@ function gitList() {
                   <li data_id='${i + 1}'>${i + 1}</li>
                 `
             }
-            console.log(str);
+            // console.log(str);
             // console.log(11111111111111111111111)
             $('tbody').html(str);
             $('#uli').html(pageStr);

@@ -88,6 +88,19 @@ router.get('/user_mobile.html',function(req,res){
     res.redirect('/user_mobile.html');
   }
 })
+//logo管理
+router.get('/user_logo.html', function (req, res) {
+  if (req.cookies.username) {
+    res.render('user_logo', {
+      username: req.cookies.username,
+      nickname: req.cookies.nickname,
+      isAdmin: parseInt(req.cookies.isAdmin) ? '(管理员)' : ''
+    })
+
+  } else {
+    res.redirect('/user_logo.html');
+  }
+})
 
 
 

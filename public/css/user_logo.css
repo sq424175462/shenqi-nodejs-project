@@ -1,8 +1,8 @@
-     .index .footer ul li.mobile a {
+ .index .footer ul li.logo a {
         color: red;
         font-weight: bolder;
     }
-    .index .footer .main{
+  .index .footer .main{
         padding-left: 30px;
         position: relative;
     }
@@ -18,10 +18,11 @@
         background:#FDFDFD;
         display: none;
     }
-    .index .footer .addIphone{
+    .index .footer .addLogo{
         position: absolute;
         left: 200px;
         top: 150px;
+        background: #999999;
     }
      .index .footer .updataIphone{
         position: absolute;
@@ -35,9 +36,8 @@
     .index .footer form div label{
         width: 100px;
         display: inline-block;
-    }
-  
-    .index .footer .updataok, .index .footer .add ,.index .footer .cancleok,.index .footer .cancle{
+    }   
+      .index .footer .updataok, .index .footer .add ,.index .footer .cancleok,.index .footer .cancle{
         height: 30px;
         width: 70px;
     }
@@ -87,6 +87,6 @@
         margin-right: 10px;
     
     }
-      .main ul .active{
-        background: red;
-    }
+     table tbody tr td:nth-of-type(2){
+       display: none;
+   }
