@@ -57,7 +57,7 @@ const userModel = {
                         if (err) {
                             callback({ code: 101, msg: '查询注册总条数失败' });
                         } else {
-                            saveData._id = arr.length  ?  arr[arr.length - 1]._id + 1   :  1;//?????怎么自增需要解决
+                            saveData._id = arr.length ? arr[arr.length - 1]._id + 1 : 1;//?????怎么自增需要解决
 
                             callback(null);
                         }
@@ -227,52 +227,35 @@ const userModel = {
             if (err) {
                 console.log('连接数据库失败');
                 cb({ code: 101, msg: '连接数据库失败' });
-            } else {
-                var db = client.db('shenqi');
-                let upData = {
-                    username: udata.username,
-                    nickname: udata.nickname,
-                    iphone: udata.iphone,
-                    sex: udata.sex,
-                    age: udata.age,
-                }
-                // 、串行无关联
-                async.waterfall([
-                    function (callback) {
-                        db.collection('user').updateOne({ 'username': upData.username }, {
-                            '$set': {
-                                'nickname': upData.nickname,
-                                'iphone': upData.iphone,
-                                'sex': upData.sex,
-                                'age': upData.age,
-
-                            }
-                        }, function (err) {
-                            if (err) {
-                                console.log('修改失败');
-                                callback({ code: 102, msg: err })
-                            } else {
-                                // console.log('hhhhhhhh, 到这里了没有');
-                                callback(null);
-                            }
-                        })
-                    }
-
-                ], function (err, results) {
-                    // console.log(results)
-                    if (err) {
-                        console.log('上面两步可能出了问题');
-                        cb(err);
-                    } else {
-                        cb(null);
-                    }
-                    client.close();
-                })
-
             }
+            var db = client.db('shenqi');
+            let upData = {
+                username: udata.username,
+                nickname: udata.nickname,
+                iphone: udata.iphone,
+                sex: udata.sex,
+                age: udata.age,
+            }
+            db.collection('user').updateOne({ 'username': upData.username }, {
+                '$set': {
+                    'nickname': upData.nickname,
+                    'iphone': upData.iphone,
+                    'sex': upData.sex,
+                    'age': upData.age,
+                }
+            }, function (err) {
+                if (err) {
+                    console.log('修改失败');
+                    cb({ code: 102, msg: err })
+                } else {
+                    // console.log('hhhhhhhh, 到这里了没有');
+                    cb(null);
+                }
+                client.close();
+            })
         })
     },
-    deleteList: function (data, cb) {
+    deleteList: function (data,cb) {
         // console.log(data)
         MongoClient.connect(url, function (err, client) {
             if (err) {

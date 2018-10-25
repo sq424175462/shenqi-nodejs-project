@@ -84,7 +84,7 @@ router.post('/user_manager', function (req, res) {
     if (err) {
       res.render('myerror', err);
     } else {
-        res.redirect('/user_manager.html?')
+        res.redirect('/user_manager.html')
 
     }
   })

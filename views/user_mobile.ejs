@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/user_mobile.css">
+</head>
+
+<body>
+    <div class="container index">
+        <%- include('./pub/header.ejs',{ nickname : nickname,isAdmin:isAdmin}) %>
+        <div class="footer">
+            <%- include('./pub/left.ejs' ) %>
+            <div class="main">
+                <button id="btn">新增手机</button>
+                <form action='javescript:;' enctype="multipart/form-data" class="addIphone">
+                    <div>
+                        <label>手机品牌</label><select name="iphoneBrand" id="iphoneBrand">
+                            <option value="iphone">iphone</option>
+                            <option value="huawei">huawei</option>
+                            <option value="mi">MI</option>
+                            <option value="vivo">vivo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>手机名称</label><input type="text" name="iphoneName" id="iphoneName">
+                    </div>
+                    <div>
+                        <label>官方指导价</label><input type="text" id="priceG">
+                    </div>
+                    <div>
+                        <label>二手回收机</label><input type="text" id="priceE">
+                    </div>
+                    <div>
+                        <label>图片</label><input type="file" id="iphoneImg">
+                    </div>
+                    <div>
+                        <input type="submit" class="add" value="确认新增">
+                        <input type="button" class="cancle" value="取消">
+                    </div>
+                </form>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <td>序号</td>
+                            <td>手机品牌</td>
+                            <td>图片</td>
+                            <td>手机名称</td>
+                            <td>官方指导价</td>
+                            <td>回收二手价</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>                  
+                        <!-- <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="td"><a href="#" class="updata">修改</a><a href="#">删除</a></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <ul id="uli">
+
+                </ul>
+                <form action='javescript:;' enctype="multipart/form-data" class="updataIphone">
+                    <div>
+                        <label>手机品牌</label><select name="" id="">
+                            <option value="">请选择品牌</option>
+                            <option value="iphone">iphone</option>
+                            <option value="huawei">huawei</option>
+                            <option value="mi">MI</option>
+                            <option value="vivo">vivo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>手机名称</label><input type="text" name="" id="">
+
+                    </div>
+                    <div>
+                        <label>官方指导价</label><input type="text" id="priceG">
+                    </div>
+                    <div>
+                        <label>二手回收机</label><input type="text" id="priceE">
+                    </div>
+                    <div>
+                        <label>图片</label><input type="file" id="iphoneImg">
+                    </div>
+                    <div>
+                        <input type="submit" class="updataok" value="确认修改">
+                        <input type="button" class="cancleok" value="取消">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/js/user_mobile.js"></script>

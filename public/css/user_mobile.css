@@ -1,0 +1,92 @@
+ .index .footer ul li.mobile a {
+        color: red;
+        font-weight: bolder;
+    }
+    .index .footer .main{
+        padding-left: 30px;
+        position: relative;
+    }
+    .index .footer .main button {
+        width: 100px;
+        height: 40px;
+        margin-top: 30px;
+    }
+    .index .footer form{
+        border: 1px solid #999999;
+        width: 450px;
+        padding: 30px;
+        background:#FDFDFD;
+        display: none;
+    }
+    .index .footer .addIphone{
+        position: absolute;
+        left: 200px;
+        top: 150px;
+    }
+     .index .footer .updataIphone{
+        position: absolute;
+        left: 300px;
+        top: 150px;
+        background:#999999;
+    }
+    .index .footer form div{
+        margin-bottom: 20px;
+    }
+    .index .footer form div label{
+        width: 100px;
+        display: inline-block;
+    }
+  
+    .index .footer .updataok, .index .footer .add ,.index .footer .cancleok,.index .footer .cancle{
+        height: 30px;
+        width: 70px;
+    }
+    table{
+        width: 900px;
+        margin-top: 30px;
+        background:#FDFDFD;
+        /* display: none; */
+
+    }
+    table td{
+        width: 130px;
+    }
+    table thead tr{
+        line-height: 40px;
+        text-align: center;
+        font-weight: bolder;
+    }
+     table tbody tr{
+        line-height: 40px;
+        text-align: center;
+    }
+    table tbody .td a:first-child{
+        margin-right: 10px;
+        display:inline-block;
+    }
+    table tbody .td a:last-child{
+       color: red;
+    }
+    img{
+        height: 50px;
+        display: inline-block;
+        margin-top: 10px;
+        
+    }
+     .main ul{
+         margin-top: 10px;
+     }
+    .main ul li{
+        width: 40px;
+        height: 20px;
+        line-height: 20px;
+        border: 1px solid #999999;
+        float: left;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 10px;
+    
+    }
+      .main ul .active{
+        background: red;
+    }
