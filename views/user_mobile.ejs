@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/user_mobile.css">
 </head>
-
+ <style>
+   table tbody tr td:nth-of-type(2){
+       display: none;
+   }
+ </style>
 <body>
     <div class="container index">
         <%- include('./pub/header.ejs',{ nickname : nickname,isAdmin:isAdmin}) %>
@@ -44,6 +48,7 @@
                     <thead>
                         <tr>
                             <td>序号</td>
+                            <td style="display:none">ID</td>
                             <td>手机品牌</td>
                             <td>图片</td>
                             <td>手机名称</td>
@@ -67,9 +72,13 @@
                 <ul id="uli">
 
                 </ul>
-                <form action='javescript:;' enctype="multipart/form-data" class="updataIphone">
+                <form action='javescript:;'  enctype="multipart/form-data" class="updataIphone">
                     <div>
-                        <label>手机品牌</label><select name="" id="">
+                        <label style="display:none;">ID</label><input type="text" name="" id="ID" readonly style="display:none;">
+
+                    </div>
+                    <div>
+                        <label>手机品牌</label><select name="" id="phoneBrand" >
                             <option value="">请选择品牌</option>
                             <option value="iphone">iphone</option>
                             <option value="huawei">huawei</option>
@@ -78,18 +87,18 @@
                         </select>
                     </div>
                     <div>
-                        <label>手机名称</label><input type="text" name="" id="">
+                        <label>手机名称</label><input type="text" name="" id="phoneName">
 
                     </div>
                     <div>
-                        <label>官方指导价</label><input type="text" id="priceG">
+                        <label>官方指导价</label><input type="text" id="phonepriceG">
                     </div>
                     <div>
-                        <label>二手回收机</label><input type="text" id="priceE">
+                        <label>二手回收机</label><input type="text" id="phonepriceE">
                     </div>
-                    <div>
-                        <label>图片</label><input type="file" id="iphoneImg">
-                    </div>
+                    <!-- <div>
+                        <label>图片</label><input type="file" id="phoneImg">
+                    </div> -->
                     <div>
                         <input type="submit" class="updataok" value="确认修改">
                         <input type="button" class="cancleok" value="取消">

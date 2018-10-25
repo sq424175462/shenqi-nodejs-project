@@ -8,7 +8,7 @@ function gitList() {
         page: page,
         pageSize: pageSize
     }, function (result) {
-        console.log(result);
+        // console.log(result);
         if (result.code === 0) {
             var list = result.data.list;
             var totalPage = result.data.totalPage;
@@ -18,12 +18,13 @@ function gitList() {
                     `
                          <tr>
                             <td>${i + 1}</td>
+                            <td>${list[i]._id}</td>
                             <td>${list[i].iphoneBrand}</td>
                             <td><img src='/iphoneImg/${list[i].fileName}'></td>
                             <td>${list[i].iphoneName}</td>
                             <td>${list[i].priceG}</td>
                             <td>${list[i].priceE}</td>
-                            <td class="td"><a href="#" class="updata">修改</a><a href="#">删除</a></td>
+                            <td class="td"><a href="#" class="updata">修改</a><a href="#" class="delete">删除</a></td>
                         </tr>
                 `
             }
@@ -52,6 +53,7 @@ $(function () {
     })
     $('.add').click(function () {
         $('.updataIphone').hide();
+        gitList();
         var formData = new FormData();
         formData.append('iphoneBrand', $('#iphoneBrand option:selected').text());
         formData.append('iphoneName', $('#iphoneName').val());
@@ -65,9 +67,70 @@ $(function () {
             contentType: false,
             processData: false,
             success: function (result) {
-                if (result.code === 0) {
+                if (result[1].code === 0) {
                     $('.addIphone').hide();
                     gitList();
+                }
+            },
+            error: function () {
+            }
+        })
+    })
+
+    //删除按钮
+    $('table').on('click', '.delete', function () {
+        var iphoneId = $(this).parent().parent().find('td').eq(1).html();
+        // alert(iphoneId)
+        $.ajax({
+            url: '/user_mobile/delete',
+            method: 'post',
+            data: { 'myID':iphoneId},
+     
+            success: function (result) {
+                if (result.code === 0) {
+                    gitList();
+                }
+            },
+            error: function () {
+            }
+        })
+
+    })
+    //修改按钮
+    $('table').on('click', '.updata', function () {
+        $('.updataIphone').show();
+        $('.addIphone').hide();
+        $('#ID').val($(this).parent().parent().find('td').eq(1).html());
+        $('#phoneBrand').val($(this).parent().parent().find('td').eq(2).html());
+        $('#phoneName').val($(this).parent().parent().find('td').eq(4).html());
+        $('#phonepriceG').val($(this).parent().parent().find('td').eq(5).html())
+        $('#phonepriceE').val($(this).parent().parent().find('td').eq(6).html());
+        // $('#phoneImg').files[0].val($(this).parent().parent().find('td').eq(2).html());
+
+    })
+
+    //确认修改
+
+    $('.updataok').click(function () {
+        $('.updataIphone').hide();
+        gitList();
+        var formData = new FormData();
+        formData.append('ID', $('#ID').val());
+        formData.append('iphoneBrand', $('#phoneBrand option:selected').text());
+        formData.append('iphoneName', $('#phoneName').val());
+        formData.append('priceG', $('#phonepriceG').val());
+        formData.append('priceE', $('#phonepriceE').val());
+        // console.log("价格",$('#phonepriceE').val());
+        $.ajax({
+            url: '/user_mobile/updata',
+            method: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result.code === 0) {
+                    gitList();
+                    console.log(result)
                 }
                 else {
                     alert(result.msg);
@@ -76,14 +139,7 @@ $(function () {
             error: function () {
             }
         })
-    })
-    $('.updata').click(function () {
-        $('.updataIphone').show();
-        $('.addIphone').hide();
 
-    })
-    $('.updataok').click(function () {
-        $('.updataIphone').hide();
     })
     $('.cancleok').click(function () {
         $('.updataIphone').hide();

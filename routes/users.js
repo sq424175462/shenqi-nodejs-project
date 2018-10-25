@@ -46,7 +46,7 @@ router.post('/register', function (req, res) {
 //登录的路由
 router.post('/login', function (req, res) {
   // console.log(req.body)
-  console.log(11111111111);
+  // console.log(11111111111);
   userModel.login(req.body, function (err, data) {
     if (err) {
       res.render('myerror', err);

@@ -57,7 +57,7 @@ const userModel = {
                         if (err) {
                             callback({ code: 101, msg: '查询注册总条数失败' });
                         } else {
-                            saveData._id = arr.length ? arr[arr.length - 1]._id + 1 : 1;//?????怎么自增需要解决
+                            saveData._id = arr.length ? arr[arr.length - 1]._id + 1 : 1;
 
                             callback(null);
                         }
