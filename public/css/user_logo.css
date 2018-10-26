@@ -90,3 +90,7 @@
      table tbody tr td:nth-of-type(2){
        display: none;
    }
+    .main ul li .add{
+        background:red
+
+    }

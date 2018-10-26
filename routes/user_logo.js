@@ -39,10 +39,10 @@ router.post('/add', upload.single('iphoneImg'), function (req, res) {
                                     db.collection('logo').find().toArray(function (err, arr) {
                                         if (err) {
                                             console.log('查询失败');
-                                            callback(err,{ code: 1, msg: '新增失败' });
+                                            callback(err, { code: 1, msg: '新增失败' });
                                         } else {
                                             console.log('ok');
-                                            saveData._id = arr.length >0? arr[arr.length - 1]._id + 1 : 1;
+                                            saveData._id = arr.length > 0 ? arr[arr.length - 1]._id + 1 : 1;
                                             callback(null);
                                         }
                                     })
@@ -50,20 +50,20 @@ router.post('/add', upload.single('iphoneImg'), function (req, res) {
                                 function (callback) {
                                     db.collection('logo').insertOne(saveData, function (err) {
                                         if (err) {
-                                            callback(err,{ code: 1, msg: '新增失败' });
+                                            callback(err, { code: 1, msg: '新增失败' });
                                         } else {
                                             callback(null, { code: 0, msg: 'ok' });
                                         }
                                     })
                                 }
                             ], function (err, result) {
-                                if (err){
+                                if (err) {
                                     res.send(result);
-                                }else{
+                                } else {
                                     res.send(result);
                                 }
 
-                              client.close();
+                                client.close();
                             })
                         }
                     })
@@ -152,5 +152,63 @@ router.post('/delete', function (req, res) {
         }
     })
 })
+
+//修改
+router.post('/updata', upload.single('iphoneImg'), function (req, res) {
+    console.log(req.file)
+    console.log('----=====================')
+    fs.readFile(req.file.path, function (err, fileData) {
+        if (err) {
+            console.log('读取失败');
+            res.send({ code: 1, mgs: '新增失败' });
+        } else {
+            var fileName = new Date().getTime() + '_' + req.file.originalname;
+            var dest_path = path.resolve(__dirname, '../public/logo/', fileName);
+            fs.writeFile(dest_path, fileData, function (err) {
+                if (err) {
+                    console.log('写入失败');
+                    res.send({ code: 1, msg: '新增手机失败' });
+                } else {
+                    MongoClient.connect(url, function (err, client) {
+                        if (err) {
+                            console.log('连接数据库失败');
+                            res.send({ code: 1, msg: '新增手机失败' });
+                        } else {
+                            var db = client.db('shenqi');
+                            var saveDate = req.body;
+                            console.log(saveDate.ID)
+                            console.log(9999900000)
+                            saveDate.fileName = fileName;
+                            var updata = {
+                                iphoneBrand: saveDate.iphoneBrand,
+                                _id: saveDate.ID,
+                                fileName: saveDate.fileName
+                            }
+                            var id = parseInt(saveDate.ID)
+
+                            db.collection('logo').updateOne({ _id: id }, {
+                                $set: {
+                                    iphoneBrand: updata.iphoneBrand,
+                                    fileName: updata.fileName
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log('插入数据库失败');
+                                    res.send({ code: 1, msg: '修改手机失败' });
+                                } else {
+                                    console.log('ok');
+                                    res.send({ code: 0, msg: 'ok' });
+                                }
+                                client.close();
+                            })
+                        }
+
+                    })
+                }
+            })
+        }
+    })
+})
+
 
 module.exports = router;

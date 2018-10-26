@@ -67,18 +67,20 @@ function gitList() {
                   <li data_id='${i + 1}'>${i + 1}</li>
                 `
             }
-            console.log(str);
+            // console.log(str);
             console.log('---------------------')
             $('tbody').html(str);
             $('#uli').html(pageStr);
         }
     })
-} 
+}
 
 $('#uli').on('click', 'li', function () {
     console.log(1)
     page = $(this).attr('data_id');
     gitList();
+    $(this).addClass('add');
+
 
 })
 //修改按钮
@@ -88,7 +90,44 @@ $('table').on('click', '.updata', function () {
     $('.addLogo').hide();
     $('#ID').val($(this).parent().parent().find('td').eq(1).html());
     $('#phoneBrand').val($(this).parent().parent().find('td').eq(2).html());
- 
+
+})
+
+
+
+//确认修改
+
+$('.updataok').click(function () {
+    $('.updataIphone').hide();
+    gitList();
+    var formData = new FormData();
+    formData.append('ID', $('#ID').val());
+    formData.append('iphoneBrand', $('#phoneBrand option:selected')
+        .text());
+    formData.append('iphoneImg', $('#phoneImg')[0].files[0]);
+
+    // console.log('909090099')
+    $.ajax({
+        url: '/user_logo/updata',
+        method: 'post',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (result) {
+            if (result.code === 0) {
+                gitList();
+                console.log(result)
+            }
+            else {
+                alert(result.msg);
+            }
+        },
+        error: function () {
+            console.log('9090770099')
+
+        }
+    })
+
 })
 $('.cancleok').click(function () {
     $('.updataIphone').hide();
@@ -99,7 +138,7 @@ $('.updataok').click(function () {
 })
 //删除
 $('table').on('click', '.delete', function () {
- 
+
     var iphoneId = $(this).parent().parent().find('td').eq(1).html();
     // alert(iphoneId)
     $.ajax({
